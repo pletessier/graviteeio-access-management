@@ -144,6 +144,11 @@ public class TokenEnhancerImpl implements TokenEnhancer, InitializingBean {
                         return accessToken;
                     });
         } else {
+            accessToken.setScopes(
+                    accessToken.getScopes().stream()
+                            .filter(s -> s.equals(OPEN_ID))
+                            .collect(Collectors.toSet())
+            );
             return Single.just(accessToken);
         }
     }
